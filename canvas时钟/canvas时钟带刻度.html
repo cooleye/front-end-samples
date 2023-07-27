@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock</title>
+</head>
+
+<body>
+    <style>
+        .cvs {
+            display: block;
+            margin: auto;
+        }
+    </style>
+    <canvas class="cvs" width="500px" height="500px"></canvas>
+
+
+    <script>
+        var c = document.querySelector('.cvs')
+        var cv = c.getContext('2d')
+        cv.translate(250, 250)
+
+        // 表盘
+        function yuan() {
+            cv.lineWidth = 10;
+            cv.beginPath()
+            cv.arc(0, 0, 245, 0, 2 * Math.PI, false)
+            cv.closePath()
+            cv.stroke()
+        }
+
+        // 刻度
+        function num() {
+            // 数字
+            var nums = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2];
+            for (i = 0; i < nums.length; i++) {
+                var rad = 2 * Math.PI / 12 * i;
+                var x = Math.cos(rad) * 215;
+                var y = Math.sin(rad) * 215;
+                cv.fillStyle = "#000"
+                cv.font = "20px Georgia";
+                cv.textBaseline = 'middle';
+                cv.textAlign = "center";
+                cv.fillText(nums[i], x, y);
+            }
+            // 刻度
+            for (i = 0; i < 60; i++) {
+                var rad = 2 * Math.PI / 60 * i;
+                var x = Math.cos(rad) * 230;
+                var y = Math.sin(rad) * 230;
+                cv.beginPath();
+                if (i % 5 == 0) {
+                    cv.fillStyle = '#000'
+                } else {
+                    cv.fillStyle = '#ccc'
+                }
+                cv.arc(x, y, 2, 0, Math.PI * 2, false)
+                cv.closePath();
+                cv.fill()
+            }
+        }
+
+        // 时针
+        function dHour(hour, minu) {
+            cv.save();
+            cv.beginPath();
+            var rad = 2 * Math.PI / 12 * hour;
+            var rad2 = 2 * Math.PI / 12 / 60 * minu;
+            cv.lineWidth = 8;
+            cv.lineCap = 'round'
+            cv.rotate(rad + rad2)
+            cv.moveTo(0, 10)
+            cv.lineTo(0, -115)
+            cv.stroke();
+            cv.restore();
+        }
+        // 分针
+        function dMinu(minu) {
+            cv.save();
+            cv.beginPath();
+            var rad = 2 * Math.PI / 60 * minu;
+            cv.lineWidth = 5;
+            cv.lineCap = 'round'
+            cv.rotate(rad)
+            cv.moveTo(0, 10)
+            cv.lineTo(0, -160)
+            cv.stroke();
+            cv.restore();
+        }
+        // 秒针
+        function dSecd(secd) {
+            cv.save();
+            cv.beginPath();
+            var rad = 2 * Math.PI / 60 * secd;
+            cv.lineWidth = 3;
+            cv.lineCap = 'round'
+            cv.strokeStyle = "#f00";
+            cv.rotate(rad)
+            cv.moveTo(0, 10)
+            cv.lineTo(0, -200)
+            cv.stroke();
+            cv.restore();
+        }
+        // 圆心
+        function center() {
+            cv.beginPath()
+            cv.arc(0, 0, 5, 0, 2 * Math.PI, false)
+            cv.fillStyle = "gray"
+            cv.fill()
+        }
+
+        function draw() {
+            var date = new Date();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+          
+            cv.clearRect(-250, -250, 500, 500);
+            yuan()
+            num()
+            dHour(h, m)
+            dMinu(m)
+            dSecd(s)
+            center()
+        }
+        draw()
+        setInterval(draw, 1000);
+    </script>
+</body>
+
+</html>

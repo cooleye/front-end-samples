@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <script>
+        const canvas = document.querySelector("canvas")
+        const screenWidth = screen.availWidth;
+        const screenHeight = screen.availHeight;
+        canvas.width = screenWidth
+        canvas.height = screenHeight
+
+        const ctx = canvas.getContext("2d")
+
+        ctx.fillStyle = "rgba(255,255,255,0.75)"
+
+        const snows = []
+        // 雪花数量
+        const SNOW_NUM = 500;
+        // 生成雪花坐标
+        function generateSnow() {
+
+            for (let i = 0; i < SNOW_NUM; i++) {
+                let x = Math.random() * screenWidth;
+                let y = Math.random() * screenHeight;
+                let r = Math.random() * 5 + 5;
+                let xs = Math.random() * 1 - 0.5;
+                let ys = Math.random() * 0.5 + 1;
+     
+    
+                snows.push([x, y, r,xs,ys])
+            }
+        }
+        generateSnow()
+
+
+
+        function drawSnow() {
+            ctx.clearRect(0,0,screenWidth,screenHeight)
+            for (let p of snows) {
+                ctx.beginPath()
+                ctx.arc(p[0],p[1],p[2],0,Math.PI*2,false)
+                ctx.fill()
+                //水平方向的变化
+                p[0] = p[0] + p[3]
+   
+               
+                // 向下的移动
+                p[1] = p[1]+ p[4];
+                // 如果超出底边，则回到最上边
+                p[1] = p[1] > screenHeight ? -10 : p[1]
+            }
+        }
+
+        drawSnow()
+        setInterval(function () {
+            drawSnow()
+        }, 16)
+    </script>
+</body>
+
+</html>

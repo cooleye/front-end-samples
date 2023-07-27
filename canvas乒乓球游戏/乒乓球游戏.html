@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: solid 1px black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500" height="500"></canvas>
+    <script>
+        let canvas = document.querySelector("canvas")
+        let ctx = canvas.getContext('2d')
+
+        // 初始坐标
+        let x = Math.random() * 300 + 100;
+        let y = Math.random() * 300 + 100;
+
+
+        // 0~1   -1 ~ +1
+        let speedx = (Math.random() * 2 - 1) * 10;
+        let speedy = (Math.random() * 2 - 1) * 10;
+        // let speedx = 3;
+        // let speedy = 3;
+
+        // 拍子的坐标
+        let batx = 0;
+        let timer = null;
+
+        // 清空画布
+        function clear() {
+            ctx.clearRect(0, 0, 500, 500)
+        }
+
+        function drawBall() {
+            // 绘制小球
+            ctx.fillStyle = "#f00"
+            ctx.beginPath()
+            ctx.arc(x, y, 10, 0, Math.PI * 2, false)
+            ctx.fill()
+
+            // 判断小球是否碰到拍子
+            // 小球的y>=390
+            // 小球的x > batx && x < batx + 100;
+            if (y >= 390 && x >= batx && x <= batx + 100) {
+                speedx = speedx * -1
+                speedy = speedy * -1
+            }
+
+            if (x <= 10 || x >= 490) {
+                speedx = speedx * -1
+            }
+            if (y <= 10 || y >= 490) {
+                speedy = speedy * -1
+            }
+            x += speedx;
+            y += speedy;
+
+        }
+
+        function drawBat() {
+            // 绘制拍子
+            ctx.beginPath()
+            ctx.fillStyle = "#000"
+            ctx.fillRect(batx, 400, 100, 10)
+        }
+
+        function getBatX(x) {
+            x = x - 50;
+            x = x < 0 ? 0 : x;
+            x = x > 400 ? 400 : x;
+            return x;
+        }
+
+        function draw() {
+
+            clear()
+            drawBall()
+            drawBat()
+            if (y >= 490) {
+                clearInterval(timer)
+            }
+        }
+
+
+        canvas.addEventListener("mousemove", function (evt) {
+            batx = getBatX(evt.clientX)
+        })
+
+        timer = setInterval(function () {
+            draw()
+        }, 16)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./animate.css">
+</head>
+
+<body>
+    <div class="container">
+        <button id="hdjn"></button>
+        <button id="wdjp" class="animate__animated animate__wobble"></button>
+        <p id="visit-count">累计0人次参与</p>
+        <canvas id="gk" width="319" height="138"></canvas>
+        <p id="reslut-text">谢谢参与</p>
+        <img src="./imgs/bg2.jpeg" class="result" alt="">
+    </div>
+
+    <div class="result-page hide">
+        <div class="content">
+            <button id="restart">再来一次</button>
+            <button id="guanzhu">马上关注</button>
+            <button>下载app</button>
+        </div>
+    </div>
+    <script>
+        let container = document.querySelector(".container")
+        let gk = document.querySelector("#gk")
+        let ctx = gk.getContext("2d")
+        let canvasWidth = gk.width;
+        let canvasHeight = gk.height;
+        let reslutText = document.querySelector("#reslut-text")
+
+        function start() {
+            // 绘制灰色背景
+            ctx.fillStyle = "#ccc"
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+            // 新年大礼
+            function drawText() {
+                ctx.save()
+
+                ctx.font = "28px serif"
+                ctx.fillStyle = "#999"
+                ctx.rotate(-Math.PI / 6)
+                ctx.translate(-200, 50)
+                for (let i = 0; i < 15; i++) {
+                    let x = i % 2 === 0 ? 0 : 40;
+                    ctx.fillText("新年大礼 新年大礼 新年大礼 新年大礼 新年大礼 新年大礼 新年大礼 新年大礼 新年大礼 新年大礼", x, i * 55)
+                }
+                ctx.restore()
+            }
+            drawText()
+
+            // 刮开
+            function guaka() {
+
+                let ispress = false;
+
+                function startHandler() {
+                    ispress = true;
+                }
+
+                function moveHandler(x, y) {
+                    if (ispress) {
+                        // console.log(x,y);
+                        ctx.clearRect(x - 20, y - 20, 40, 40)
+                    }
+                }
+
+                function endHandler() {
+                    ispress = false;
+                }
+
+                gk.addEventListener("mousedown", startHandler)
+                gk.addEventListener("mousemove", function (evt) {
+                    // console.log(evt)
+                    let offsetLeft = (container.offsetWidth - gk.offsetWidth) / 2
+                    let offsetTop = gk.offsetTop
+                    moveHandler(evt.clientX - offsetLeft, evt.clientY - offsetTop)
+                })
+                gk.addEventListener("mouseup", endHandler)
+
+                gk.addEventListener("touchstart", startHandler)
+                gk.addEventListener("touchmove", function (evt) {
+                    let touch = evt.touches[0]
+                    let offsetLeft = (container.offsetWidth - gk.offsetWidth) / 2
+                    let offsetTop = gk.offsetTop
+                    moveHandler(touch.clientX - offsetLeft, touch.clientY - offsetTop)
+                    let rate = getFilledPercentage()
+                    if (rate >= 0.8) {
+                        ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+                        // 显示结果
+                        showResult()
+                    }
+                })
+            }
+
+            guaka()
+
+            getResult()
+        }
+
+
+        start()
+
+        // 计算挂卡的面积的比例
+        function getFilledPercentage() {
+            let imgData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+            // imgData.data是个数组，存储着指定区域每个像素点的信息，数组中4个元素表示一个像素点的rgba值
+            let pixels = imgData.data;
+            let transPixels = [];
+            for (let i = 0; i < pixels.length; i += 4) {
+                // 严格上来说，判断像素点是否透明需要判断该像素点的a值是否等于0，
+                // 为了提高计算效率，这儿设置当a值小于128，也就是半透明状态时就可以了
+                if (pixels[i + 3] < 128) {
+                    transPixels.push(pixels[i + 3]);
+                }
+            }
+            return ((transPixels.length / (pixels.length / 4))).toFixed(2);
+        }
+        getFilledPercentage()
+
+
+        // 计算是否中奖
+        // 1/2/3/谢谢参数4个结果
+        // 一等奖概率： 1%  
+        // 二等奖概率： 5%
+        // 三等奖：  10%；
+        // 谢谢参与： 90%
+        // reslutText
+        // var 
+        // 0~1  r < 0.01
+        function getResult() {
+            let r = Math.random()
+            console.log(r);
+            if (r < 0.01) {
+                reslutText.innerHTML = "一等奖"
+            } else if (r < 0.05) {
+                reslutText.innerHTML = "二等奖"
+            } else if (r < 0.1) {
+                reslutText.innerHTML = "三等奖"
+            } else {
+                reslutText.innerHTML = "谢谢参与"
+            }
+        }
+
+
+
+        let resultPage = document.querySelector(".result-page")
+        function showResult() {
+            
+            resultPage.classList.remove('hide')
+        }
+
+        // 在来一次
+        let restart = document.querySelector("#restart")
+        restart.onclick = function(){
+            resultPage.classList.add('hide')
+
+            start()
+        }
+    </script>
+</body>
+
+</html>

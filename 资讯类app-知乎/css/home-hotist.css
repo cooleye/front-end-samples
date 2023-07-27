@@ -1,0 +1,61 @@
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+section{
+    flex: 1;
+    margin-top: .8rem;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.zu{
+    width: 3.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: .01rem solid #999999;
+    margin-left: 5%;
+    margin-top: 3%;
+}
+.zu p{
+    width: .13rem;
+    height: .26rem;
+    /* background-color: #FE9607; */
+    font-size: .14rem;
+    text-align: center;
+    line-height: .26rem;
+    margin-right: 2%;
+    color: #FE9607;
+}
+.wenzi{
+    width: 2.48rem;
+    font-size: .14rem;
+}
+.zu span{
+    font-size: .12rem;
+    color: #999999;
+    display: inline-block;
+    margin:1% 0% 2% 6%;
+}
+.zu img{
+    width: 57px;
+    height: 57px;
+}
+
+.zu .num{
+    padding: 0 2px;
+    color: #fff;
+}
+.bg-red{
+    background-color: red;
+    
+}
+.bg-orange{
+    background-color: #FE9607;
+}
+.bg-gold{
+    background-color: goldenrod;
+}

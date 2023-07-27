@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./art-template.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <label for="province">省：<select name="" id="province"></select></label>
+
+        <label for="province">市：<select name="" id="city">
+                <option value="">请选择</option>
+            </select></label>
+
+        <label for="province">区：<select name="" id="district">
+                <option value="">请选择</option>
+            </select></label>
+    </div>
+    <!-- 省一级的模板 -->
+    <script id="pro-tpl" type="text/html">
+        {{each data}}
+        <option value="{{$value.id}}">{{$value.label}}</option>
+        {{/each}}
+    </script>
+
+    <!-- 市一级的模板 -->
+    <script id="city-tpl" type="text/html">
+        {{each data}}
+        <option value="{{$value.id}}">{{$value.label}}</option>
+        {{/each}}
+    </script>
+
+     <!-- 区一级的模板 -->
+     <script id="dist-tpl" type="text/html">
+        {{each data}}
+        <option value="{{$value.id}}">{{$value.label}}</option>
+        {{/each}}
+    </script>
+    <script src="./request.js"></script>
+
+    <script>
+        const $ = s => document.querySelector(s)
+        const url = `http://localhost:3000/provinces`
+        request({
+                url
+            })
+            .then(res => {
+                const html = template("pro-tpl", {
+                    data: res
+                })
+                $("#province").innerHTML = html
+            })
+
+        let pid;
+        $("#province").onchange = function () {
+            pid = this.value;
+            if (pid) {
+                request({
+                        url,
+                        data: {
+                            pid
+                        }
+                    })
+                    .then(res => {
+                        const html = template("city-tpl", {
+                            data: res
+                        })
+                        $("#city").innerHTML = html
+                    })
+            }
+        }
+
+
+        $("#city").onchange = function () {
+            const cid = this.value;
+            if (cid) {
+                request({
+                        url,
+                        data: {
+                            cid,
+                            pid
+                        }
+                    })
+                    .then(res => {
+                        console.log(res)
+                        const html = template("dist-tpl", {
+                            data: res
+                        })
+                        $("#district").innerHTML = html
+                    })
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./request.js"></script>
+    <script>
+        const stu = `http://127.0.0.1:4523/m1/1852129-0-default/stu`
+
+        const user = `http://127.0.0.1:4523/m1/1852129-0-default/user`
+
+        // request({url}).then(res =>{
+        //     console.log(res)
+        // })
+
+        // request({url:stu})
+        // .then(res =>{
+        //     console.log(res)
+        // })
+        // .then(request({url:user}))
+        // .then(res =>{
+        //     console.log(res)
+        // })
+
+        async function getData() {
+            const stu_data = await request({
+                url: stu
+            })
+            console.log(stu_data)
+            const user_data = await request({
+                url: user
+            })
+            console.log(user_data)
+
+        }
+
+        getData()
+    </script>
+</body>
+
+</html>

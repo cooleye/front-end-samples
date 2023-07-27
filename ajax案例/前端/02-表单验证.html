@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .success {
+            color: green;
+        }
+
+        .fail {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <div>
+            邮箱： <input type="text" name="" id="email"> <span id="email_tip"></span>
+        </div>
+        <div>
+            密码： <input type="password" name="" id="password">
+        </div>
+        <button> 提交</button>
+    </div>
+    <script src="./request.js"></script>
+    <script>
+        const $ = selector => document.querySelector(selector)
+
+        $("#email").onblur = function () {
+            const value = this.value;
+            // 使用正则验证是否符合邮箱规则
+            let reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/
+            if (reg.test(value)) {
+                // 发送到后端，验证是否已经注册
+                request({
+                        url: "http://192.168.1.103:3000/regist",
+                        data: {
+                            email: value
+                        }
+                    })
+                    .then(res => {
+                        console.log(res)
+                        
+                        if (res.code === 200) {
+                            $("#email_tip").innerHTML = "✅"
+                            $("#email_tip").classList.add("success")
+                        }else{
+                            $("#email_tip").innerHTML = res.message
+                            $("#email_tip").classList.add("fail")
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            } else {
+                $("#email_tip").innerHTML = "📮邮箱格式不正确"
+                $("#email_tip").classList.add("fail")
+            }
+        }
+    </script>
+</body>
+
+</html>

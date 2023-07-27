@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .message {
+            display: inline-block;
+            color: #fff;
+            margin: 0 auto;
+            padding: 5px 15px;
+            border-radius: 10px;
+            position: absolute;
+            left: 50%;
+            /* 元素从初始的位置 */
+            top: -100px;
+            opacity: 0;
+        }
+
+        .primary {
+            background-color: lightblue;
+        }
+
+        .danger {
+            background-color: lightcoral;
+        }
+
+        .success {
+            background-color: lightgreen;
+        }
+
+        .info {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <button id="btn1">点击1</button>
+    <button id="btn2">点击2</button>
+    <button id="btn3">点击3</button>
+    <button id="btn4">点击3</button>
+    <script>
+        var message = document.querySelector('.message')
+        var btn1 = document.querySelector('#btn1')
+        var btn2 = document.querySelector('#btn2')
+        var btn3 = document.querySelector('#btn3')
+        var btn4 = document.querySelector('#btn4')
+
+        var msg = new Message()
+        btn1.onclick = function () {
+            msg.show("成功1111", 'success')
+        }
+        btn2.onclick = function () {
+            msg.show("失败", 'danger')
+        }
+        btn3.onclick = function () {
+            msg.show("信息", 'info')
+        }
+        btn4.onclick = function () {
+            msg.show("主要的", 'primary')
+        }
+
+
+        // 消息组件
+        function Message() {
+            this.messages = []
+        }
+        Message.prototype.show = function (text, type) {
+            var _this = this;
+            var msg = document.createElement("div")
+            msg.innerText = text;
+            msg.classList.add("message")
+            msg.classList.add(type)
+
+            document.body.appendChild(msg)
+
+            // 出现的动画
+            setTimeout(function () {
+                // console.log(_this.messages.length)
+                msg.style.top = _this.messages.length * 35 + 'px'
+                msg.style.opacity = 1;
+                msg.style.transition = "all .5s ease";
+            })
+
+            // 消失的动画
+            setTimeout(function () {
+                msg.style.top = "-100px"
+                msg.style.opacity = 0;
+                setTimeout(function () {
+                    _this.messages.splice(msg, 1)
+                    document.body.removeChild(msg)
+                }, 500)
+            }, 2000)
+            this.messages.push(msg)
+        }
+    </script>
+</body>
+
+</html>

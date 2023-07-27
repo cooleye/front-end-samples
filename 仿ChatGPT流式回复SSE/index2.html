@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+    <style>
+      #example {
+        border: solid 1px #f00;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="start">start</button>
+    <div id="example"></div>
+    <script>
+      const url =
+        "https://1870466810991564.ap-south-1.fc.aliyuncs.com/2016-08-15/proxy/chat-server-india.LATEST/sse-name/";
+
+      var start = document.querySelector("#start");
+
+      start.onclick = function () {
+        // 调用函数
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify({ prompt: "你好，你是谁？请介绍你自己" }),
+        }).then((res) => {
+          getStream();
+        });
+      };
+
+      function getStream() {
+        var source = new EventSource(url);
+        var div = document.getElementById("example");
+
+        source.onmessage = function (event) {
+          console.log(event.data);
+          div.innerHTML += event.data;
+        };
+      }
+    </script>
+  </body>
+</html>

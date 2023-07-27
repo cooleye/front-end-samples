@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rate {
+            width: 150px;
+            font-size: 24px;
+            display: flex;
+        }
+
+        .rate span {
+            flex: 1;
+            text-align: center;
+        }
+
+        .gray {
+            /* 滤镜 */
+            filter: grayscale(180%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1></h1>
+    <div class="rate">
+        <span class="star  gray" data-index="0">😑</span>
+        <span class="star  gray" data-index="1">😑</span>
+        <span class="star  gray" data-index="2">😑</span>
+        <span class="star  gray" data-index="3">😑</span>
+        <span class="star  gray" data-index="4">😑</span>
+    </div>
+    <script>
+        var rate = document.querySelector(".rate")
+        // 伪数组
+        var stars = document.querySelectorAll(".star")
+
+        var score = 2;
+
+        function setScore(score) {
+            if (score) {
+                stars.forEach(function (item, index) {
+
+                    if (index <= score) {
+                        // item.src = ""
+                        item.innerHTML = "😁"
+                        item.classList.remove('gray')
+                        
+                    } else {
+                        item.innerHTML = "😑"
+                        item.classList.add('gray')
+                    }
+
+                })
+                document.querySelector("h1").innerHTML = score/1 + 1
+            }
+        }
+
+        setScore(score)
+
+        rate.addEventListener('mouseover', function (e) {
+            var cur = e.target.dataset.index
+            setScore(cur)
+        })
+
+        rate.addEventListener('mouseleave', function (e) {
+
+            setScore(score)
+        })
+
+        rate.addEventListener('click', function (e) {
+            var cur = e.target.dataset.index
+            score = cur;
+            setScore(cur)
+        })
+    </script>
+</body>
+
+</html>

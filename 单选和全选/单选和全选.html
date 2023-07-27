@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <table border="1">
+        <tr>
+            <td><input type="checkbox" class="checkall"></td>
+            <td>111</td>
+            <td>aaa</td>
+        </tr>
+        
+        <tr>
+            <td><input type="checkbox"class="check-one"></td>
+            <td>111</td>
+            <td>aaa</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="check-one"></td>
+            <td>22</td>
+            <td>bbb</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="check-one"></td>
+            <td>333</td>
+            <td>ccc</td>
+        </tr>
+    </table>
+
+    <script>
+        var checkall = document.querySelector(".checkall");
+        var check_ones = document.querySelectorAll(".check-one")
+
+        // 全选
+        checkall.onclick = function(){
+
+            check_ones.forEach((item) =>{
+                item.checked = this.checked
+            })
+            
+        }
+
+        // 单选
+        // some 判断数组中师是否有至少是一个h元素复合条件 
+        // every  判断数组中师是否所有元素复合某个条件
+      
+        // check_ones 转数组   
+        var arr = []
+        check_ones.forEach(item => arr.push(item))        
+
+        arr.forEach(item =>{
+
+            var flag = true;
+            item.onclick = function(){
+                // 判断数组中，是否所有checkbox都选中
+                // 如果都选中，则全选选中，否则取消选中
+                checkall.checked = arr.every(item => item.checked)
+            }
+        })
+
+    </script>
+</body>
+</html>

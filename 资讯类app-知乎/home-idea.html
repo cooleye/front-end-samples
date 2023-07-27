@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/home-idea.css">
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li>
+                <a href="#" class="homepage color-000">想法</a>
+            </li>
+            <li>
+                <a href="./home-recommend.html">推荐</a>
+            </li>
+            <li>
+                <a href="./home-hotlist.html">热榜</a>
+            </li>
+            <li>
+                <img src="./img/搜索.png" alt="">
+            </li>
+            <li>
+                <img src="./img/消息.png" alt="">
+                <span>99+</span>
+            </li>
+        </ul>
+    </header>
+    <section class="flex-1 overflow-auto">
+        <div class="subject">
+            <ul class="content" id="articleList"></ul>
+        </div>
+    </section>
+    <!-- 尾部 -->
+    <footer>
+        <ul>
+            <li>
+                <img src="./img/首页-蓝.png" alt="">
+                <span class="color-0166ff">首页</span>
+            </li>
+            <li>
+                <img src="./img/关注-白.png" alt="">
+                <span>关注</span>
+            </li>
+            <li>
+                <img src="./img/会员-白.png" alt="">
+                <span>会员</span>
+            </li>
+            <li>
+                <img src="./img/我的-白.png" alt="">
+                <span>我的</span>
+            </li>
+            <li>
+                <p></p>
+                <p></p>
+            </li>
+        </ul>
+    </footer>
+
+    <!-- 定义模板 -->
+    <script id="tpl" type="text/html">
+        {{each data}}
+        <li class="mb-10">
+            <img src="{{$value.cover}}" alt="">
+            <p class="omit">{{$value.desc}}</p>
+            <div class="author">
+                <img src="{{$value.avatar}}" alt="">
+                <span>{{$value.name}}</span>
+                <img src="./img/点赞.png" alt="">
+                <span>{{$value.like}}</span>
+            </div>
+        </li>
+        {{/each}}
+    </script>
+    <script src="./js/art-template.js"></script>
+    <script src="./js/request.js"></script>
+    <script>
+        request({
+                url: "http://127.0.0.1:4523/m1/2165582-0-default/idea"
+            })
+            .then(res => {
+                let json = JSON.parse(res)
+                let html = template("tpl",json)
+                document.querySelector("#articleList").innerHTML = html;
+
+            })
+    </script>
+</body>
+
+</html>

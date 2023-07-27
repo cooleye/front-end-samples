@@ -1,0 +1,112 @@
+
+
+
+
+
+.subject{
+    display: flex;
+}
+.content{
+    margin-left: .12rem;
+    column-count: 2;
+    width: 3.75rem;
+    column-gap: .03rem;
+    margin-top: .15rem;
+}
+.content li{
+    break-inside: avoid;
+}
+.content li:nth-child(1){
+    width: 1.7rem;
+    height: 2.15rem;
+    background-color: #fff;
+    border-radius: .08rem;
+}
+.content li:nth-child(1)>img{
+    width: 1.7rem;
+    height: 1.3rem;
+}
+.content li p{
+    width: 1.55rem;
+    font-size: .14rem;
+    line-height: .21rem;
+    margin-top: .1rem;
+    padding: 0 .06rem;
+}
+
+.content .author{
+    display: flex;
+}
+.content .author img:nth-of-type(1){
+    width: .18rem;
+    height: .18rem;
+    margin: .04rem 0 0 .07rem;
+}
+.content .author span:nth-of-type(1){
+    width: .66rem;
+    font-size: .11rem;
+    color: #666;
+    margin: .07rem 0 0 .08rem;
+}
+.content .author img:nth-of-type(2){
+    width: .14rem;
+    height: .14rem;
+    margin: .07rem 0 0 .35rem;
+}
+.content .author span:nth-of-type(2){
+    font-size: .11rem;
+    color: #666;
+    margin: .07rem 0 0 .05rem;
+}
+
+.content li:nth-child(2){
+    width: 1.7rem;
+    height: 2.15rem;
+    background-color: #fff;
+    border-radius: .08rem;
+}
+.content li:nth-child(2)>img{
+    width: 1.7rem;
+    height: 1.3rem;
+}
+.content li:nth-child(3){
+    width: 1.7rem;
+    height: 3.12rem;
+    background-color: #fff;
+    border-radius: .08rem;
+}
+.content li:nth-child(3)>img{
+    width: 1.70rem;
+    height: 2.28rem;
+}
+.content li:nth-child(4){
+    width: 1.7rem;
+    height: 3.12rem;
+    background-color: #fff;
+    border-radius: .08rem;
+}
+.content li:nth-child(4) img{
+    width: 1.70rem;
+    height: 2.27rem; 
+}
+.content li:nth-child(5){
+    width: 1.7rem;
+    height: 2.15rem;
+    background-color: #fff;
+    border-radius: .08rem;
+}
+.content li:nth-child(5) img{
+    width: 1.7rem;
+    height: 1.3rem;
+}
+.content li:nth-child(6){
+    width: 1.7rem;
+    height: 2.15rem;
+    background-color: #fff;
+    border-radius: .08rem;
+}
+
+.content li:nth-child(6) img{
+    width: 1.7rem;
+    height: 1.3rem;
+}

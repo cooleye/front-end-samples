@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        overflow-y: scroll;
+      }
+      .container {
+        width: 100%;
+        height: 5000px;
+
+        /* background-color: aquamarine; */
+      }
+
+      button {
+        width: 60px;
+        height: 60px;
+        border: none;
+        outline: none;
+        position: fixed;
+        right: 100px;
+        bottom: 100px;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+      }
+
+      .hide {
+        /* visibility: hidden; */
+        opacity: 0;
+        transition: opacity 0.5s linear;
+      }
+      ul {
+        list-style-type: none;
+      }
+      ul li {
+        background-color: aqua;
+        height: 50px;
+        margin-top: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="list"></ul>
+      <button class="backbtn hide">返回顶部</button>
+    </div>
+
+    <script>
+      let list = document.querySelector(".list");
+      let container = document.querySelector(".container");
+      let backbtn = document.querySelector(".backbtn");
+
+      let lis = "";
+      for (let i = 0; i < 1000; i++) {
+        lis += `<li>${i}</li>`;
+      }
+      list.innerHTML = lis;
+
+      document.addEventListener("scroll", function () {
+        console.log(window.pageYOffset);
+        if (window.pageYOffset >= 500) {
+          backbtn.classList.remove("hide");
+        } else {
+          backbtn.classList.add("hide");
+        }
+      });
+
+      let timer = null;
+      let speed = 0;
+      backbtn.addEventListener("click", () => {
+        speed = window.pageYOffset / 100 
+        timer = setInterval(() => {
+          if (window.pageYOffset > 0) {
+            window.scrollTo(0, pageYOffset - speed);
+          }else{
+            clearInterval(timer)
+          }
+        }, 10);
+      });
+    </script>
+  </body>
+</html>

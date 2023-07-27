@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./qrcode.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <a href="#" download="qr.png" id="download">下载二维码</a>
+    <div id="container"></div>
+    <script>
+        var canvas = document.getElementById('canvas')
+
+        // 绘制到canvas上
+        QRCode.toCanvas(canvas, '123', function (error) {
+            if (error) console.error(error)
+            console.log('success!');
+        })
+        // 转成base64
+        QRCode.toDataURL('some text', {
+            errorCorrectionLevel: 'L'
+        }, function (err, url) {
+            console.log(url)
+            document.querySelector("#download").href = url
+        })
+        // 转成 svg字符串
+        QRCode.toString('http://www.google.com', function (err, string) {
+            if (err) throw err
+            console.log(string)
+            document.querySelector("#container").innerHTML = string
+
+        })
+    </script>
+</body>
+
+</html>

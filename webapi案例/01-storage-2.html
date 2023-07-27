@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+ 
+    <h1 id="show">第二个页面</h1>
+    <script>
+        window.addEventListener("storage",function(e){
+            console.log(e)
+
+            let str = `
+              key:${e.key}
+              新值： ${e.newValue}
+              旧值： ${e.oldValue}
+              storageArea:${JSON.stringify(e.storageArea)}
+            `
+            show.innerHTML = str
+        })
+    </script>
+  </body>
+</html>

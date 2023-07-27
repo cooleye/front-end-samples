@@ -1,0 +1,107 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body{
+    overflow: hidden;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    background: url(./imgs/bg.png) no-repeat;
+    background-size: 100%;
+    background-position: top;
+    background-color: #ff1d1d;
+    position: relative;
+}
+
+#hdjn{
+    width: 80px;
+    height: 80px;
+    border: none;
+    outline: none;
+    background: url(./imgs/hdjn.png);
+    background-position: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#wdjp{
+    width: 80px;
+    height: 80px;
+    border: none;
+    outline: none;
+    background: url(./imgs/wdjp.png);
+    background-position: right;
+    background-size: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    z-index: 100;
+}
+#visit-count{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+canvas{
+    /* 319 / 375 */
+    width: 85vw;
+    /* background-color: #aaa; */
+    position: absolute;
+    left: 50%;
+    margin-left: -42vw;
+    top: 99vw;
+    z-index: 10;
+    /* transform: scale(0.5); */
+}
+.result{
+    width: 85vw;
+    position: absolute;
+    left: 50%;
+    margin-left: -42vw;
+    top: 99vw;
+}
+#reslut-text{
+    width: 85vw;
+    height: 36vw;
+    position: absolute;
+    left: 50%;
+    margin-left: -42vw;
+    top: 99vw;
+    z-index: 8;
+    text-align: center;
+    font-size: 40px;
+    line-height: 36vw;
+}
+
+/* 结果页面 */
+.result-page{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hide{
+    visibility: hidden;
+}
+
+.result-page .content{
+    width: 90vw;
+    height: 90vw;
+    background-color: #fff;
+    
+}

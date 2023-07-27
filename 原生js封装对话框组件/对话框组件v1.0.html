@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        html,body{
+            width: 100%;height: 100%;
+        }
+        .dialog{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            background-color: rgb(0,0,0,0.5);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dialog .dialog-main{
+            min-width: 300px;
+            min-height: 100px;
+            background-color: #fff;
+            box-sizing: border-box;
+            padding: 12px;
+        }
+        .dialog .dialog-main .dialog-title{
+            font-size: 20px;
+            color: #333;
+        }
+        .dialog .dialog-main .dialog-content{
+            font-size: 20px;
+            box-sizing: border-box;
+            padding: 10px 0;
+            color: #333;
+            text-align: center;
+        }
+        .dialog .dialog-main .dialog-control{
+            display: flex;
+        }
+        .dialog-control button{
+            flex: 1;
+            margin: 10px;
+        }
+        .m-button{
+            min-width: 100px;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+        }
+        .primary{
+            background-color: lightskyblue;
+            color: #fff;
+        }
+        .hide{
+            display: none;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <button class="m-button" id="btn"> 弹出对话框 </button>
+
+
+    <div class="dialog hide">
+        <div class="dialog-main">
+            <h3 class="dialog-title">title</h3>
+            <div class="dialog-content">conentt</div>
+            <div class="dialog-control">
+                <button class="primary m-button" id="ensurebtn">确定</button>
+                <button class="m-button" id="cancelbtn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var $ = function(s){
+            return document.querySelector(s)
+        }
+
+        var dialog = $(".dialog")
+        $("#btn").onclick = function(){
+            dialog.classList.remove("hide")
+        }
+
+        $("#ensurebtn").onclick = function(){
+            dialog.classList.add("hide")
+        }
+        $("#cancelbtn").onclick = function(){
+            dialog.classList.add("hide")
+        }
+
+
+
+
+    </script>
+</body>
+</html>

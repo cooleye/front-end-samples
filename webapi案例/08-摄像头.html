@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <video style="width: 400px; height: 400px"></video>
+      <canvas width="200px" height="150px"></canvas>
+
+      <button id="openVideo">开启摄像头</button>
+      <button id="snapVideo">截取图像</button>
+      <button id="closeVideo">关闭摄像头</button>
+    </div>
+    <script>
+      let video = null;
+      let MediaStreamTrack = null;
+
+      openVideo.onclick = function () {
+        video = document.querySelector("video");
+        console.log(window.navigator.webkitGetUserMedia);
+        if (window.navigator.webkitGetUserMedia) {
+          window.navigator.webkitGetUserMedia(
+            {
+              audio: true,
+              video: true,
+            },
+            (stream) => {
+              MediaStreamTrack =
+                typeof stream.stop === "function"
+                  ? stream
+                  : stream.getTracks()[1];
+
+              //把摄像头捕捉到的数据给视频
+              video.srcObject = stream;
+              // _.video.src = window.URL.createObjectURL(stream);
+              video.play();
+
+              console.log(stream);
+            },
+            (err) => {}
+          );
+        }
+      };
+      snapVideo.onclick = function () {
+        let context = document.querySelector("canvas").getContext("2d");
+
+        context.drawImage(video, 0, 0, 200, 150);
+      };
+      closeVideo.onclick = function () {
+        MediaStreamTrack && MediaStreamTrack.stop();
+        MediaStreamTrack = null;
+      };
+    </script>
+  </body>
+</html>

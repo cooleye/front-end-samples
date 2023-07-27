@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .card {
+        width: 200px;
+        height: 300px;
+        background-color: red;
+        color: #fff;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 30px 0;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        width: 120px;
+        justify-content: space-between;
+        margin: 0 auto;
+      }
+
+      ul li {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      输入开始时间: <input type="date" id="dateInput" />
+      <input type="time" id="timeInput" />
+
+      <button id="start">开始</button>
+    </div>
+    <div class="card">
+      <h1>京东秒杀</h1>
+
+      <p><span> 8：00 </span>点场，距结束</p>
+
+      <ul>
+        <li id="hour">00</li>
+        :
+        <li id="min">56</li>
+        :
+        <li id="sec">40</li>
+      </ul>
+    </div>
+    <script>
+      var start = document.querySelector("#start");
+      start.onclick = function () {
+        var dateInput = document.querySelector("#dateInput").value;
+        var timeInput = document.querySelector("#timeInput").value;
+
+        var hourDiv = document.querySelector("#hour");
+        var minDiv = document.querySelector("#min");
+        var secDiv = document.querySelector("#sec");
+
+        var startTime = dateInput + " " + timeInput;
+        console.log("开始时间：", startTime);
+
+        // var endTime =
+        // 把字符串 2023-07-25 09:14 转成时间戳  1690248497923
+        startTime = new Date(startTime).getTime();
+        var endTime = startTime + 2 * 60 * 60 * 1000;
+
+        setInterval(function () {
+          var currentTime = new Date().getTime();
+
+          var delta = endTime - currentTime;
+
+          var hour = Math.floor(delta / 1000 / 60 / 60);
+          hour = hour < 10 ? "0" + hour : hour;
+
+          var min = Math.floor((delta / 1000 / 60) % 60);
+          min = min < 10 ? "0" + min : min;
+          var s = Math.floor((delta / 1000) % 60);
+          s = s < 10 ? "0" + s : s;
+
+          console.log(hour + ":" + min + ":" + s);
+          hourDiv.innerHTML = hour
+          minDiv.innerHTML = min
+          secDiv.innerHTML = s
+
+        }, 1000);
+      };
+    </script>
+  </body>
+</html>

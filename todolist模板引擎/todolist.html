@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/art-template.js"></script>
+    <script src="./lib/jquery.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px #ccc;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .h-30 {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        input[type="text"] {
+            width: 380px;
+            height: 30px;
+            border: solid 1px #ccc;
+            outline: none;
+            background-color: #fefefe;
+        }
+
+        .item {
+            height: 40px;
+            line-height: 40px;
+            margin-top: 5px;
+        }
+
+        .btn-primary {
+            width: 120px;
+            height: 30px;
+            border: none;
+            background-color: deepskyblue;
+            color: #fff;
+        }
+
+        .btn-danger {
+            width: 120px;
+            height: 30px;
+            border: none;
+            background-color: red;
+            color: #fff;
+        }
+
+        .float-r {
+            float: right;
+        }
+
+        .done {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="flex">
+            <input type="text" id="text-input"> <button class="btn-primary" id="btn-add">添加</button>
+        </div>
+
+        <ul id="todo-list">
+
+        </ul>
+
+        <script id="todo-tpl" type="text/html">
+            {{each todos}}
+            <li class="item" data-id="{{$value.id}}">
+                <input type="checkbox" {{ $value.isDone ? "checked" : "" }}>
+                <span class="{{ $value.isDone ? "done" : "" }}">{{$value.text}}</span>
+                <button class="del btn-danger float-r">删除</button>
+            </li>
+            {{/each}}
+        </script>
+    </div>
+    <script>
+        // 数组保存所有的todo的数据
+        let todos = []
+        if(localStorage.getItem("todos")){
+            todos = JSON.parse(localStorage.getItem("todos"))
+        }
+        renderTodo()
+
+
+        $("#btn-add").on("click", () => {
+
+            let text = $("#text-input").val()
+            if (text) {
+                let todo = {
+                    id: Math.random().toString(16).slice(2),
+                    text: text,
+                    isDone: false,
+                    idDel: false
+                }
+                todos.unshift(todo)
+                renderTodo()
+                $("#text-input").val("")
+            }
+        })
+
+        function renderTodo() {
+
+            localStorage.setItem("todos",JSON.stringify(todos))
+
+
+            let html = template("todo-tpl", {
+                todos
+            })
+            $("#todo-list").html(html)
+
+            $(".item input").on("click", function () {
+                let id = $(this).parent().data("id")
+
+                if (id) {
+                    // todos = todos.map(item =>{
+                    //     if(id === item.id){
+                    //         item.isDone = !item.isDone
+                    //     }
+                    //     return item
+                    // })
+
+                    // 用来记录更新元素的下标
+                    let index;
+                    // 更具id 找出更新的元素
+                    let todo = todos.filter((item, i) => {
+                        if (item.id === id) {
+                            index = i;
+                        }
+                        return item.id === id
+                    })[0]
+                    // 把更新元素的isDone修改
+                    todo.isDone = !todo.isDone;
+                    // 从原数组删除
+                    todos.splice(index, 1)
+                    // 再放在数组最后
+                    if (todo.isDone) {
+                        todos.push(todo)
+                    } else {
+                        todos.unshift(todo)
+                    }
+
+
+                    // 重新渲染
+                    renderTodo()
+                }
+            })
+
+            $(".item .del").on("click", function(){
+                let id = $(this).parent().data("id")
+                console.log(id)
+                todos = todos.filter(item => item.id !== id)
+                renderTodo()
+            })
+        }
+
+
+
+    </script>
+</body>
+
+</html>

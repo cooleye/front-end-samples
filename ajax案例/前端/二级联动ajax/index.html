@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    一级分类: <select id="cate1"></select>
+
+    二级分类: <select id="cate2"></select>
+
+    <script id="tpl" type="text/html">
+        {{each data}}
+            <option value="{{$value.id}}">{{$value.title}}</option>
+        {{/each}}
+    </script>
+
+
+    <script src="./ajax.js"></script>
+    <script src="./art-template.js"></script>
+    <script>
+
+        let cate1 = document.querySelector("#cate1")
+        let cate2 = document.querySelector("#cate2")
+
+        let books = []
+
+        ajax({
+                url: "./book.json"
+            })
+            .then(res => {
+                books = res.data;
+                let html = template("tpl",{data: books})
+                cate1.innerHTML = html
+            })
+
+            cate1.onchange = function(){
+                let id = this.value
+
+                // 根据id获取二级分类的数据
+                let item = books.find((item) =>{
+                    return item.id == id;
+                })
+
+                let html = template("tpl",{data: item.children})
+                cate2.innerHTML = html
+            }
+
+    </script>
+
+</body>
+
+</html>

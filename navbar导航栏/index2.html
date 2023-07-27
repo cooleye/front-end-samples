@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            overflow: hidden;
+        }
+        .navbar{
+            width: 100vw;
+            height: 50px;
+            overflow: hidden;
+            border-bottom: solid 1px #eee;
+            line-height: 50px;
+            font-size: 16px;
+            color: #333;
+        }
+        .wrapper{
+            display: inline-block;
+            width: 1000px;
+            position: relative;
+            transition: transform .5s ease;
+        }
+        .wrapper .wrapper-inner{
+            display: inline-block;
+        }
+        .wrapper .nav-item{
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 0 12px;
+            transition: all .3s ease;
+        }
+        .active-line{
+            width: 50px;
+            height: 5px;
+            background-color: blue;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 10;
+            transition: all .3s ease;
+        }
+        .active{
+            color: blue;
+            font-weight: 600;
+            transition: all .3s ease;
+        }
+
+
+        /* 滑动页面 */
+        .container{
+            overflow: hidden;
+            /* height: 100%; */
+        }
+        .container .slide-wrapper{
+            height: 100%;
+            position:relative;
+            transition: all .3s ease;
+        }
+        .container .slide{
+            width: 100vw;
+            height: 100%;
+            text-align: center;
+            font-size: 40px;
+            padding-top: 100px;
+            background-color: #eee;
+            position: absolute;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="wrapper" data-type="wrapper">
+            <div class="wrapper-inner">
+                <div class="nav-item " data-type="item" data-index="0">新闻</div>
+                <div class="nav-item active" data-type="item" data-index="1">娱乐</div>
+                <div class="nav-item" data-type="item" data-index="2">体育NBA</div>
+                <div class="nav-item" data-type="item" data-index="3">健康</div>
+                <div class="nav-item" data-type="item" data-index="4">影视频道</div>
+                <div class="nav-item" data-type="item" data-index="5">教育</div>
+                <div class="nav-item" data-type="item" data-index="6">读书</div>
+                <div class="nav-item" data-type="item" data-index="7">音乐</div>
+                <div class="nav-item" data-type="item" data-index="8">广播</div>
+                <div class="nav-item" data-type="item" data-index="9">购物</div>
+                <div class="active-line" data-type="item"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="slide-wrapper">
+            <div class="slide">新闻</div>
+            <div class="slide">娱乐</div>
+            <div class="slide">体育NBA</div>
+            <div class="slide">健康</div>
+            <div class="slide">影视频道</div>
+            <div class="slide">教育</div>
+            <div class="slide">读书</div>
+            <div class="slide">音乐</div>
+            <div class="slide">广播</div>
+            <div class="slide">购物</div>
+        </div>
+        
+    </div>
+    <script>
+        var $ = function(selector){return document.querySelector(selector)}
+        var $$ = function(selector){return document.querySelectorAll(selector)}
+        var activeLine =  $(".active-line")
+        var wrapper = $(".wrapper");
+        var wrapperInner = $(".wrapper-inner")
+        var winWidth = window.screen.width;
+        var slides = $$(".slide");
+        var slideWrapper = $('.slide-wrapper')
+
+        $(".wrapper").addEventListener('click',function(e){
+            var target = e.target
+            var type = target.dataset["type"]
+            if(type === 'item'){
+                $(".active").classList.remove("active")
+                e.target.classList.add('active')
+                moveActiveLine()
+
+                // console.log()
+                moveSlide(target.dataset.index)
+            }
+        })
+
+        activeLine.addEventListener("transitionend",function(){
+            moveTabbar()
+        })
+        activeLine.addEventListener("webkitTransitionEnd",function(){
+            moveTabbar()
+        })
+
+        // 移动下划线
+        function moveActiveLine(){
+            var left = $(".active").offsetLeft
+            var width = $(".active").offsetWidth;
+
+            activeLine.style.width = width - 24 + 'px'
+            activeLine.style.left = left + 12 + 'px'
+        }
+
+        // 移动tabbar
+        function moveTabbar(){
+            //移动结束后，判断是否已经到边缘
+            // 如果到了边缘，判断左右两侧是否还有其他元素，如果有的话，则移动tabar
+            var activeLineCenterPointer = activeLine.offsetLeft + activeLine.offsetWidth/2
+    
+            // wrapper距离右边的距离
+            var wrapperInnerOffsetRight = wrapperInner.offsetWidth - winWidth
+            // 移动距离
+            var delta = activeLineCenterPointer - winWidth/2
+            delta = delta < wrapperInnerOffsetRight ? delta : wrapperInnerOffsetRight;
+            delta = delta < 0 ? 0 : delta;
+            wrapper.style.transform = `translateX(${-delta}px)`
+        }
+
+
+        function initSlide(){
+           
+            for(var i = 0; i < slides.length;i++){
+                var slide = slides[i]
+                slide.style.left = winWidth * i + 'px'
+            }
+        }
+
+        function moveSlide(index){
+            slideWrapper.style.transform = `translateX(-${index*winWidth}px)`
+        }
+
+        function init(){
+            moveActiveLine()
+            initSlide()
+        }
+
+
+
+        init()
+
+
+    </script>
+</body>
+</html>

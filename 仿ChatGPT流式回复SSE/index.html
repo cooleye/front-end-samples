@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+    <style>
+        #example{
+            border: solid 1px #f00;
+        }
+    </style>
+  </head>
+  <body>
+    <button id="start">start</button>
+    <div id="example"></div>
+    <script>
+      var start = document.querySelector("#start");
+      start.onclick = function () {
+        // var xhr = new XMLHttpRequest();
+        // xhr.open("GET", "http://127.0.0.1:8844/stream");
+        // xhr.send();
+        // xhr.onreadystatechange = function () {
+        //   if (xhr.readyState == 4 && xhr.status == 200) {
+            
+        //   }
+        // };
+
+        getStream()
+      };
+
+      function getStream() {
+        var source = new EventSource("http://127.0.0.1:8844/stream");
+        var div = document.getElementById("example");
+
+        // source.onopen = function (event) {
+        //   div.innerHTML += "<p>Connection open ...</p>";
+        // };
+
+        // source.onerror = function (event) {
+        //   div.innerHTML += "<p>Connection close.</p>";
+        // };
+
+        // source.addEventListener(
+        //   "connecttime",
+        //   function (event) {
+        //     div.innerHTML += "<p>Start time: " + event.data + "</p>";
+        //   },
+        //   false
+        // );
+
+        source.onmessage = function (event) {
+            console.log(event.data);
+          div.innerHTML += event.data;
+        };
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      *{
+        padding: 0; margin: 0;
+      }
+      input {
+        width: 400px;
+        height: 40px;
+        font-size: 20px;
+        color: #333;
+        border: 0;
+        border-bottom: solid 1px #ccc;
+      }
+      button {
+        width: 160px;
+        height: 40px;
+        border: none;
+        outline: none;
+        background-color: blue;
+        color: #fff;
+        user-select: none;
+        outline-style: none;
+      }
+      .container {
+        width: 560px;
+        margin: 50px auto;
+      }
+      .flex{
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+     <div class="flex">
+       <input type="text" id="inputText" /><button id="btn">send</button>
+     </div>
+      <p id="show"></p>
+    </div>
+
+    <script>
+      btn.onclick = async function () {
+        let text = inputText.value;
+        if (text) {
+          let res = await ajax(text);
+          show.innerHTML = res.replyContent;
+          inputText.value = "";
+        }
+      };
+
+      function ajax(text) {
+        return new Promise((resolve, reject) => {
+          const url = "https://tagm6vpd97.hk.aircode.run/mpchat";
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", url);
+          xhr.setRequestHeader("Content-Type", "application/json");
+
+          xhr.send(
+            JSON.stringify({
+              spoken: text,
+              userid: Math.random().toString(16).slice(2),
+              msgtype: "text",
+              eventid: Math.random().toString().slice(2),
+            })
+          );
+          xhr.onload = function () {
+            let json = JSON.parse(xhr.responseText);
+            resolve(json);
+          };
+          xhr.onerror = function () {
+            reject(xhr.responseText);
+          };
+        });
+      }
+    </script>
+  </body>
+</html>

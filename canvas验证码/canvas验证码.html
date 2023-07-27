@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #captcha-canvas {
+            border: solid 1px #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="text" id="captcha-input">
+    <!-- <p id="cap"></p>  -->
+    <canvas id="captcha-canvas" width="140" height="40"></canvas>
+    <a href="#" id="get-new-captcha">重新生成</a>
+
+    <button id="submit"> 提交 </button>
+    <script>
+        // 验证码，防止机器操作 DDOS
+        // 高并发,短时间内，发起大量的请求，占用服务器资源
+        let captchaCanvas = document.querySelector("#captcha-canvas")
+        let ctx = captchaCanvas.getContext("2d")
+        let captcha = null;
+        drawCaptcha()
+
+        let getNewCaptcha = document.querySelector("#get-new-captcha")
+        getNewCaptcha.onclick = function () {
+            drawCaptcha()
+        }
+
+        let submit = document.querySelector("#submit")
+        submit.onclick = function(){
+            let captchaInput = document.querySelector("#captcha-input")
+            if(captchaInput.value.toLowerCase() === captcha.toLowerCase()){
+                alert("验证成功")
+            }else{
+                alert("验证码输入错误")
+                captchaInput.value = ""
+            }
+        }
+
+
+        // 生成验证码字符串
+        function getCaptcha(num) {
+            // 4位，字母数字结合
+            // var arr = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j']
+            var str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+            function generate() {
+                let index = Math.floor(Math.random() * str.length);
+                let char = str[index]
+                return char;
+            }
+
+            let captcha = ''
+            for (let i = 0; i < num; i++) {
+                captcha += generate()
+            }
+
+            return captcha;
+        }
+
+        // 生成颜色
+        function getColor() {
+            var r = Math.floor(Math.random() * 16).toString(16);
+            var g = Math.floor(Math.random() * 16).toString(16);
+            var b = Math.floor(Math.random() * 16).toString(16);
+
+            return `#${r}${g}${b}`
+        }
+
+        // 增加噪点
+        function drawNoise() {
+            // 绘制噪点
+            // for (let i = 0; i < 20; i++) {
+            //     ctx.save()
+            //     ctx.fillStyle = getColor()
+            //     ctx.beginPath()
+            //     let x = Math.random() * (captchaCanvas.width-0) + 0;
+            //     let y = Math.random() * (captchaCanvas.height-0) + 0;
+            //     let w = Math.random() * 50;
+            //     let angle = Math.random()*0.1;
+            //     ctx.rotate(Math.PI * angle)
+            //     ctx.fillRect(x, y, w, 1)
+            //     ctx.restore()
+            // }
+
+            for (let i = 0; i < 10; i++) {
+                ctx.save()
+                ctx.strokeStyle = getColor()
+                ctx.beginPath()
+                let x = Math.random() * (captchaCanvas.width-0) + 0;
+                let y = Math.random() * (captchaCanvas.height-0) + 0;
+                let r = Math.random() * 5;
+                ctx.arc(x, y, r, 0,Math.PI*2)
+                ctx.stroke()
+                ctx.restore()
+            }
+        }
+
+        // 最文字做拉伸和旋转
+        function drawText(char, x, y) {
+            ctx.save()
+            ctx.font = "30px serif"
+            // 0.5~1.5 
+            let scaleX = Math.random() * 0.4 + 0.8;
+            let scaleY = Math.random() * 0.4 + 0.8;
+            ctx.scale(scaleX, scaleY)
+            // 选装角度范围 0 ~ 90   0 ~ Math.PI/2
+            let angle = Math.random() * 0.1;
+            // ctx.rotate(Math.PI*angle)
+            if(Math.random() < 0.5){
+                    // 字符的颜色
+                ctx.fillStyle = getColor()
+                ctx.fillText(char, x, y)
+            }else{
+                ctx.strokeStyle = getColor()
+                ctx.strokeText(char, x, y)
+            }
+            
+            ctx.restore()
+        }
+
+        // 绘制验证码
+        function drawCaptcha() {
+
+            ctx.clearRect(0,0,captchaCanvas.width,captchaCanvas.height)
+            ctx.fillStyle = "#fff"
+            ctx.fillRect(0,0,captchaCanvas.width,captchaCanvas.height)
+            drawNoise()
+
+            captcha = getCaptcha(4)
+            for (let i = 0; i < captcha.length; i++) {
+                drawText(captcha[i], 25 * i + 20, 30)
+            }
+        }
+    </script>
+</body>
+
+</html>

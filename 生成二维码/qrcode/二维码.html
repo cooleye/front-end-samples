@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./qrcode.js"></script>
+</head>
+
+<body>
+    <!-- <img src="data:image/png;base64,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" alt="" srcset=""> -->
+    <canvas></canvas>
+    <div class="container"></div>
+    <!-- 下载 -->
+    <a href="#" download="二维码.png" id="dowload">下砸二维码</a>
+    <script>
+        let canvas = document.querySelector("canvas")
+        QRCode.toCanvas(canvas, "白宇豪", function (error) {
+            if (error) console.error(error)
+            console.log('success!');
+        })
+
+
+        // 转成base64
+        QRCode.toDataURL('some text', {
+            errorCorrectionLevel: 'L'
+        }, function (err, url) {
+            console.log(url)
+            document.querySelector("#dowload").href = url;
+            // document.querySelector("#download").href = url
+        })
+
+         // 转成 svg字符串
+         QRCode.toString('白老师', function (err, string) {
+            if (err) throw err
+            console.log(string)
+            document.querySelector(".container").innerHTML = string
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+{
+    "data":[
+        {
+            "id":0,
+            "name":"iphone 14",
+            "price":8999,
+            "desc":"水果手机"
+        },
+        {
+            "id":1,
+            "name":"华为Mate 50",
+            "price":7999,
+            "desc":"华为Mate 50华为Mate 50华为Mate 50华为Mate 50"
+        },
+        {
+            "id":2,
+            "name":"vivo",
+            "price":5999,
+            "desc":"vivovivovivovivovivo"
+        },
+        {
+            "id":3,
+            "name":"oppo",
+            "price":5999,
+            "desc":"oppo oppo oppo oppo"
+        },
+        {
+            "id":4,
+            "name":"小米 13",
+            "price":4999,
+            "desc":"小米 13 小米 13 小米 13 小米 13"
+        }
+    ]
+}

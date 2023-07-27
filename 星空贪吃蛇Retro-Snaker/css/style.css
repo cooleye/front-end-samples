@@ -1,0 +1,152 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #fff;
+}
+
+.game {
+    width: 100%;
+    /* max-width: 375px; */
+    height: 100%;
+    /* background-color: #000; */
+    margin: 0 auto;
+    position: relative;
+}
+
+.hide {
+    display: none;
+}
+
+.home-page {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: solid 1px #fff;
+    box-shadow: 0 0 10px #fff inset;
+}
+
+.home-page h1 {
+    font-size: 100px;
+    color: #333;
+    margin-top: 100px;
+    color: #eef;
+    animation: twinkle-2 3s ease infinite;
+}
+
+.home-page p {
+    font-size: 30px;
+    color: #fff;
+}
+
+.home-page .level {
+    font-size: 24px;
+    color: #fff;
+}
+
+.level label {
+    margin-right: 25px;
+}
+
+.level label input {
+    margin-left: 10px;
+}
+
+input[type="radio"] {
+    position: relative;
+}
+
+input[type="radio"]::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: #fff;
+    left: -5px;
+    top: -5px;
+}
+input[type="radio"]:checked::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: #25f;
+    left: -5px;
+    top: -5px;
+}
+
+
+.home-page #start-btn {
+    width: 200px;
+    height: 50px;
+    border: solid 1px #fff;
+    margin-top: 50px;
+    border-radius: 5px;
+    font-size: 20px;
+    animation: twinkle-1 1s ease infinite;
+
+}
+
+@keyframes twinkle-1 {
+    0% {
+        box-shadow: none;
+    }
+
+    50% {
+        box-shadow: 0 0 15px #fff;
+    }
+
+    100% {
+        box-shadow: none;
+    }
+}
+
+@keyframes twinkle-2 {
+    0% {
+        text-shadow: none;
+    }
+
+    50% {
+        text-shadow:
+            0 0 10px #25f,
+            0 0 15px #aaf,
+            0 0 25px #fff;
+    }
+
+    100% {
+        text-shadow: none;
+    }
+}
+
+.shadow-green {
+    box-shadow:
+        0 0 10px #25f,
+        0 0 15px #aaf,
+        0 0 25px #fff;
+}
+
+.shadow-red {
+    box-shadow: 0 0 5px #f05, 0 0 15px #f08, 0 0 25px #fff;
+}

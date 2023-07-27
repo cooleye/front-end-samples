@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="list"></div>
+
+    <input type="text" id="username" />
+    <input type="password" id="password" />
+    <button id="submit">添加</button>
+
+    <script>
+      // 读取数据
+      if (localStorage.getItem("user")) {
+        let user = JSON.parse(localStorage.getItem("user"));
+        list.innerHTML = `${user.username},${user.password}`;
+      }
+
+      submit.onclick = function () {
+        let user = {
+          username: username.value,
+          password: password.value,
+        };
+
+        // localStorage只能存string
+        // [object Object]
+        localStorage.setItem("user", JSON.stringify(user));
+      };
+    </script>
+  </body>
+</html>

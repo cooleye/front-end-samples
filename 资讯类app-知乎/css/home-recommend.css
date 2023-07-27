@@ -1,0 +1,121 @@
+
+
+section div:nth-child(1){
+    width: 3.75rem;
+    height: 3.37rem;
+    background: #ffffff;
+}
+section ul{
+    display: flex;
+    justify-content: space-between;
+    font-size: .13rem;
+    padding: 0 .15rem;
+    padding-top: .1rem;
+}
+section ul a{
+    color: #666666;
+}
+section ul img{
+    width: .09rem;
+    height: .09rem;
+    margin-top: .05rem;
+}
+.content{
+    position: relative;
+}
+.content input{
+    display: block;
+    margin: 0 auto;
+    margin-top: .15rem;
+    width: 3.45rem;
+    height: .35rem;
+    border: 1px solid #0f63e3;
+    font-size: .14rem;
+    border-radius: .18rem;
+    padding-left: .15rem;
+    background: url(../img/搜索-蓝.png) no-repeat;
+    background-position: 3.15rem .1rem;
+}
+.content .content-p{
+    font-size: .15rem;
+    font-weight: bold;
+    padding: 0 .15rem;
+    margin-top: .15rem;
+}
+.content-author{
+    display: flex;
+    margin-top: .1rem;
+}
+.content-author img{
+    width: .2rem;
+    height: .2rem;
+    margin-left: .15rem;
+}
+.content-author span:nth-of-type(1){
+    font-size: .12rem;
+    color: #666666;
+    line-height: .2rem;
+    margin-left: .05rem;
+}
+.content-author span:nth-of-type(2){
+    font-size: .12rem;
+    color: #999;
+    line-height: .2rem;
+    margin-left: .05rem;
+}
+.content-video{
+    position: absolute;
+    top: 1.75rem;
+    left: .15rem;
+}
+
+section .number-of-plays{
+    font-size: .13rem;
+    color: #999999;
+    margin-top: .43rem;
+    font-weight: bold;
+    padding-left: .15rem;
+}
+section .user{
+    width: 3.75rem;
+    height: 1.72rem;
+    background: #ffffff;
+    padding: 0 .15rem;
+    margin-top: .1rem;
+    position: relative;
+}
+.user h1{
+    font-size: .15rem;
+    padding-top: .15rem;
+    line-height: .21rem;
+}
+.user div:nth-of-type(1){
+    display: flex;
+}
+.user div:nth-of-type(1) img{
+    width: .2rem;
+    height: .2rem;
+}
+.user div:nth-of-type(1) span{
+    font-size: .12rem;
+    color: #666666;
+    line-height: .2rem;
+    margin-left: .05rem;
+}
+.user p{
+    font-size: .13rem;
+    color: #666;
+    width: 3.45rem;
+    height: .36rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient:vertical;
+}
+.user .zan{
+    font-size: .13rem;
+    position: absolute;
+    top: 1.22rem;
+    color: #999;
+}

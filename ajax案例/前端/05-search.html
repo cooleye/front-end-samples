@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: aliceblue;
+        }
+
+        .mc {
+            margin: 0 auto;
+        }
+
+        .w-500 {
+            width: 500px;
+        }
+
+        .text {
+            width: 300px;
+            height: 40px;
+        }
+
+        .button {
+            width: 100px;
+            height: 40px;
+        }
+
+        ul {
+            list-style: none;
+            background-color: #fff;
+
+        }
+
+        ul li {
+            height: 40px;
+        }
+    </style>
+    <script src="./art-template.js"></script>
+</head>
+
+<body>
+
+    <div class="mc w-500">
+        <input type="text" class="text" name="" id="search"> <button class="button">搜索</button>
+        <ul id="list"></ul>
+    </div>
+
+    <script id="res-tpl" type="text/html">
+        {{each result}}
+        <li>
+            {{$value}}
+        </li>
+        {{/each}}
+    </script>
+    <script src="./request.js"></script>
+    <script>
+        const $ = s => document.querySelector(s)
+
+
+        function debounce(delay, fn) {
+            let timer = null
+            return function () {
+                clearInterval(timer)
+                timer = setTimeout(function () {
+                    fn()
+                }, delay)
+            }
+        }
+
+        $("#search").oninput = debounce(500,function(){
+            const k =  $("#search").value;
+            console.log(k)
+            if (k) {
+                const url = "http://localhost:3000/search"
+                request({
+                        url,
+                        data: {
+                            k
+                        }
+                    })
+                    .then(res => {
+
+                        let html = template("res-tpl", {
+                            result: res.data
+                        })
+                        $("#list").innerHTML = html;
+                    })
+            }
+        })
+    </script>
+</body>
+
+</html>

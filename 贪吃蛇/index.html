@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <div class="dialog" id="game-start">
+        <h1>贪吃蛇</h1>
+        
+        <button id="start"> 开始游戏 </button>
+    </div>
+
+    <p class="score-label"><span id="score-label">0</span></p>
+
+    <div id="container"></div>
+    <div class="dialog hide" id="game-over">
+        <h1>游戏结束</h1>
+        <p id="score">100分</p>
+        <button id="restart"> 重新开始 </button>
+    </div>
+
+    <!-- 音频标签 -->
+    <audio src="./audio/bg.mp3" id="bgmusic"></audio>
+    <audio src="./audio/eat.mp3" id="eatmusic"></audio>
+    <audio src="./audio/fail.mp3" id="failmusic"></audio>
+
+    <script src="./js/constant.js"></script>
+    <!-- <script src="./js/Block.js"></script> -->
+    <script src="./js/BlockClass.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
