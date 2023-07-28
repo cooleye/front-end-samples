@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body,
+        #app,
+        .container {
+            width: 800px;
+            height: 100%;
+            margin: 0 auto;
+        }
+
+        .flex {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .flex-1 {
+            flex: 1;
+            padding: 5px;
+            display: flex;
+        }
+
+        .flex-2 {
+            flex: 2;
+            padding: 5px;
+            display: flex;
+        }
+
+        .bg-gray {
+            background-color: #ccc;
+        }
+
+        .height-50 {
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .line-height-0 {
+            line-height: 0px;
+        }
+
+        .mt-5 {
+            margin-top: 5px;
+        }
+
+        .fs-14 {
+            font-size: 14px;
+        }
+
+        .color-white {
+            color: #fff;
+        }
+
+        .color-black {
+            color: black;
+        }
+
+        .ta-center {
+            text-align: center;
+        }
+
+        .list {
+            margin-top: 10px;
+        }
+
+        .border {
+            border-bottom: solid 1px #ccc;
+        }
+
+        button {
+            padding: 2px 5px;
+            background-color: aquamarine;
+            border: none;
+            margin-left: 5px;
+        }
+
+        .outline {
+            border: solid 1px blue;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding-left: 10px;
+            margin-left: 20px;
+        }
+
+        .router-view {
+            background-color: #eee;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="container">
+
+            <header class="flex bg-gray height-50 fs-14 color-white ta-center">
+                <div class="flex-1">菜单名称</div>
+                <div class="flex-1">url</div>
+                <div class="flex-1">操作</div>
+            </header>
+
+            <div class="list">
+                <div v-for="(menu,index) in menus" :key="menu.key" class="fs-14 color-white  mt-5">
+                    <div class="flex bg-gray height-50">
+                        <div class="flex-1">
+                            <span @click="menu.showSub=!menu.showSub">
+                                {{ menu.showSub ? '∧' : '∨' }} </span>
+                            <input type="text" v-model="menu.name" :disabled="!menu.editable"
+                                :class="{'outline':menu.editable}">
+                        </div>
+                        <div class="flex-1">
+                            <a :href="`#${menu.url}`">
+                                <input type="text" v-model="menu.url" :disabled="!menu.editable"
+                                    :class="{'outline':menu.editable}">
+                            </a>
+                        </div>
+                        <div class="flex-2 line-height-0">
+                            <button @click="menu.editable=!menu.editable"> {{ menu.editable ? '确定'  : '编辑'}} </button>
+                            <button @click="addMenu" v-if="menu.key==0">新增一级菜单</button>
+                            <button @click="addSubMenu(index)">新增二级菜单</button>
+                            <button @click="sort(index,-1)">升序</button>
+                            <button @click="sort(index,1)">降序</button>
+                            <button @click="delMenu(index)">删除</button>
+                        </div>
+                    </div>
+                    <div v-if="menu.showSub" v-for="(m,idx) in menu.children"
+                        class="height-50 line-height-50 flex border color-black">
+                        <div class="flex-1">
+                            <input type="text" v-model="m.name" :disabled="!m.editable" :class="{'outline':m.editable}">
+                        </div>
+                        <div class="flex-1">
+                            <a :href="`#${m.url}`">
+                                <input type="text" v-model="m.url" :disabled="!m.editable"
+                                    :class="{'outline':m.editable}">
+                            </a>
+                        </div>
+                        <div class="flex-2">
+                            <button @click="m.editable=!m.editable"> {{ m.editable ? '确定'  : '编辑'}} </button>
+                            <button @click="sort(index,-1,idx)">升序</button>
+                            <button @click="sort(index,1,idx)">降序</button>
+                            <button @click="delMenu(index,idx)">删除</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="router-view">
+                <h1> {{ content }} </h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let initData = [{
+            key: 0,
+            name: "首页",
+            url: "/home",
+            showSub: true,
+            editable: false, //菜单是否可编辑
+            children: [{
+                    key: 0,
+                    name: "首页-1",
+                    url: "/home/h1",
+                    editable: false, //菜单是否可编辑
+                },
+                {
+                    key: 1,
+                    name: "首页-2",
+                    url: "/home/h2",
+                    editable: false, //菜单是否可编辑
+                },
+                {
+                    key: 2,
+                    name: "首页-3",
+                    url: "/home/h3",
+                    editable: false, //菜单是否可编辑
+                },
+            ]
+        }]
+
+
+        new Vue({
+            el: "#app",
+            data: {
+                menus: initData,
+                content: "",
+                user:{}
+            },
+            created() {
+                let menus = localStorage.getItem("menus")
+
+                console.log(JSON.parse(menus))
+                if (menus && JSON.parse(menus).length > 0) {
+                    this.menus = JSON.parse(menus);
+                } else {
+                    this.menus = initData;
+                    localStorage.setItem("menus", JSON.stringify(initData))
+                }
+            },
+            mounted() {
+                this.initRouter()
+            },
+            watch: {
+                menus: {
+                    handler(val) {
+                        console.log(val)
+                        this.syncData(JSON.stringify(val))
+                    },
+                    deep: true
+                }
+            },
+            methods: {
+                addMenu() {
+                    this.menus.push({
+                        key: this.menus.length,
+                        name: "",
+                        url: "",
+                        showSub: true,
+                        editable: false, //菜单是否可编辑
+                        children: []
+                    })
+                },
+                addSubMenu(key) {
+                    this.menus[key].children.push({
+                        key: this.menus.length,
+                        name: "",
+                        url: "",
+                        showSub: true,
+                        editable: false, //菜单是否可编辑
+                    })
+                },
+                sort(index, n, subIndex) {
+
+                    if (subIndex != undefined) {
+
+                        if (subIndex + n < 0 || subIndex + n > this.menus[index].children.length - 1) {
+                            return
+                        } else {
+                            let a = this.menus[index].children[subIndex]
+                            let b = this.menus[index].children[subIndex + n]
+                            
+                            this.menus[index].children.splice(subIndex, 1, b)
+                            this.menus[index].children.splice(subIndex + n, 1, a)
+                        }
+
+                    } else {
+                        if (index + n < 0 || index + n > this.menus.length - 1) {
+                            return
+                        } else {
+                            let a = this.menus[index]
+                            let b = this.menus[index + n]
+                            this.menus.splice(index, 1, b)
+                            this.menus.splice(index + n, 1, a)
+                        }
+                    }
+
+                },
+                delMenu(index, subIndex) {
+                    console.log(index, subIndex)
+                    if (subIndex != undefined) {
+                        this.menus[index].children.splice(subIndex, 1)
+                    } else {
+                        this.menus.splice(index, 1)
+                    }
+                },
+                // 同步数据，保持data和本地存储一致
+                syncData(data) {
+                    localStorage.setItem("menus", data)
+                },
+                initRouter() {
+                    // 路由
+                    window.addEventListener('hashchange', () => {
+                        let hash = location.hash;
+                        this.content = hash;
+                    })
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+    
+    .star{
+        width: 100px;height: 100px;
+        background: #f00;
+        animation: star 1s  infinite;
+    }
+
+
+    @keyframes star {
+        0%{
+            transform:scale(1);
+        }
+        25%{
+            transform:scale(1.5);
+        }
+        50%{
+            transform:scale(0.8);
+        }
+        75%{
+            transform:scale(1.8);
+        }
+        100%{
+            transition: scale(1);
+        }
+    }
+
+    .car{
+        animation: move 1s  ease-in-out infinite reverse;
+    }
+
+    @keyframes move {
+        form{
+            transform: translateX(0);
+        }
+        to{
+            transform: translateX(200px)
+        }
+    }
+    </style>
+</head>
+<body>
+    
+
+    <div class="star">star</div>
+
+    <div class="car">car</div>
+</body>
+</html>

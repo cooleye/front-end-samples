@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    figure{
+        width: 400px;
+        height: 300px;
+        margin: 50px;
+        border: solid 1px #444;
+        padding: 10px;
+        position: relative;
+    }
+
+    figure img{
+        width: 100%;
+        height: 100%;
+        transition: all 0.2s ease-in-out;
+    }
+
+    figure hgroup{
+        position: absolute;
+        width: 200px;
+        text-align: center;
+        left: 100px;
+        top: 100px;
+        z-index: -1;
+        transition: all 0.2s ease-in-out;
+    }
+    figure a{
+        display: block;
+        width: 100px;
+        position: absolute;
+        left: 160px;
+        bottom: 100px;
+        z-index: -1;
+        transition: all 0.2s ease-in-out;
+    }
+
+    figure:hover img{
+        transform:scale(0.5);
+    }
+    figure:hover hgroup{
+        top: 0;
+    }
+    figure:hover a{
+        bottom:0;
+    }
+
+    
+    </style>
+</head>
+<body>
+    
+
+    <figure>
+
+        <img src="imgs/img1.jpg" >
+        <figcaption>
+            <hgroup>
+                    <h3>web design</h3>
+                    <h5>Davie kong</h5>
+            </hgroup>
+            <a href="#">
+                <button>take a look</button>
+            </a>
+            
+        </figcaption>
+    </figure>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    .person{
+        width: 180px;
+        height: 300px;
+        background: url("./imgs/charector.png")  0 0 no-repeat;
+        /* -webkit-animation-iteration-count: infinite;动画无限播放 */
+        -webkit-animation-timing-function: step-start;
+        /* animation-timing-function: steps(1); */
+        animation-name: run;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes run {
+        0% {background-position: 0 0;}
+        14.3% {background-position: -180px 0;}
+        28.6% {background-position: -360px 0;}
+        42.9% {background-position: -540px 0;}
+        57.2% {background-position: -720px 0;}
+        71.5% {background-position: -900px 0;}
+        85.8% {background-position: -1080px 0;}
+        100% {background-position: 0 0;}
+    }
+    </style>
+</head>
+<body>
+    
+
+    <div class="person">
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container{
+        width: 850px;
+        height: 400px;
+        margin:100px auto;
+        border: solid 1px #000;
+    }
+
+    .container div{
+        width: 160px;
+        float: left;
+        border: solid 1px #aaa;
+        height: 100%;
+        transition: all 1s ease-in-out;
+    }
+    .container:hover div{
+        width: 40px;
+    }
+    .container div:hover{
+        width: 640px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+</body>
+</html>

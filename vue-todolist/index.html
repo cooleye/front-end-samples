@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        *{
+            padding: 0; margin: 0;
+        }
+        .todo-list {
+            width: 500px;
+            margin: 0 auto;
+            /* border: solid 1px #333;
+            box-sizing: border-box;
+            padding: 10px; */
+        }
+
+        .box {
+            box-sizing: border-box;
+            padding: 20px;
+            border: solid 1px #333;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .fs-16 {
+            font-size: 20px;
+
+        }
+        input{
+            width: 200px;
+            height: 40px;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+        button{
+            padding: 6px  15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: all .5s ease-in-out;
+        }
+
+        .fade-enter,
+        .fade-leave-to
+            {
+            opacity: 0;
+            transform: translateX(1000px);
+        }
+        .fade-enter-to,
+        .fade-leave
+            {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+        .text{
+            height: 40px;
+            line-height: 40px;
+        }
+        .primary{
+            background-color: #55f;
+            color: #fff;
+        }
+        .danger{
+            background-color: #f55;
+            color: #fff;
+        }
+        .success{
+            background-color: #5c5;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <todo-list />
+    </div>
+    <script>
+        Vue.component("ListItem", {
+            template: `<div class="list-item box">
+                    <p class="fs-16 text" v-show="!isEdit">{{data.text}}</p>
+                    <input type="text" class="text" v-model="data.text" v-show="isEdit">
+                    <div class="mt-10">
+                        <button @click="delTodo(data.id)" class="danger">删除</button> 
+                        <button @click="editTodo(data.id)" v-show="!isEdit" class="primary">修改</button>
+                        <button @click="saveTodo(data.id)" v-show="isEdit" class="success">保存</button>
+                    </div>
+                </div>`,
+            props: ["data"],
+            data() {
+                return {
+                    isEdit: false
+                }
+            },
+            methods: {
+                delTodo(id) {
+                    this.$emit("del-todo", id)
+                },
+                editTodo(id) {
+                    this.isEdit = true
+                    this.$emit("edit-todo", id)
+                },
+                saveTodo() {
+                    this.isEdit = false
+                }
+            }
+        })
+        Vue.component("TodoList", {
+            template: `<div class="todo-list">
+            <div class="input-block box">
+                <input type="text" v-model="text">  <button @click="addTodo" class="primary">新建</button>
+            </div>
+
+            <div class="list">
+                <transition-group name="fade">
+                <list-item v-for="(todo,index) in todos" :key="index" :data="todo" @del-todo="delTodo" @edit-todo="editTodo"/>
+            </transition-group>
+            </div>
+        </div>`,
+            data() {
+                return {
+                    text: "",
+                    todos: [{id:0,text:"111"}]
+                }
+            },
+            methods: {
+                addTodo() {
+                    if (this.text) {
+                        this.todos.push({
+                            id:Math.random().toString(16).slice(2),
+                            text:this.text
+                        })
+                        this.text = ""
+                    }
+                },
+                delTodo(id) {
+                    console.log(id)
+                    this.todos = this.todos.filter(todo =>{
+                        return todo.id != id
+                    })
+                },
+                editTodo(index) {
+                    console.log('editTodo:', index)
+                }
+            }
+        })
+
+        new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>

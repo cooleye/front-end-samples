@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="./node_modules/socket.io-client/dist/socket.io.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <ul id="message"></ul>
+    <div>
+            <input id="m" autocomplete="off" />
+            
+            <button id="send">Send</button>clear
+    </div>
+    <script>
+    var socket = io()
+
+
+    $("#send").click(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+    })
+
+    socket.on('chat message', function(msg){
+        console.log(msg)
+      $('#message').append(`<li>${msg}</li>`);
+    });
+
+    
+
+    </script>
+</body>
+</html>

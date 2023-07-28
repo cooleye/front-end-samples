@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;padding: 0;
+    }
+    
+    </style>
+
+</head>
+<body>
+
+    <script>
+        let ul;
+        let margin_left = 5;
+        let margin_bottom = 10;
+
+        let col_num = 5;
+        let row_num = 0;
+
+        let Max_img = 10;
+        let num = 1;
+
+        let heightArr = new Array( col_num ).fill( 0 );
+
+        init();
+        add_list();
+
+
+        function init(){
+            ul = document.createElement('ul');
+            Object.assign( ul.style , {
+                listStyle : 'none',
+                width : '100%',
+                overflow : 'hidden',
+            });
+            document.body.appendChild( ul );
+        }
+    
+        function add_list(){
+            for( let i=0; i<col_num ; i++ )
+            {
+                let li = document.createElement('li');
+                Object.assign( li.style , {
+                    float :'left',
+                    width : (document.documentElement.clientWidth / col_num) - margin_left + 'px',
+                    marginLeft : margin_left + 'px',
+                    height : '1000px',
+                    background : randomColor(),
+                })
+                ul.appendChild( li );
+            }
+            adjust_width();
+        }
+
+
+        function adjust_width(){
+            for( var i = 0; i < col_num ; i++ )
+            {
+                ul.children[i].style.width = (document.documentElement.clientWidth / col_num) - margin_left + 'px';
+            }
+        }
+
+
+        function randomColor(){
+            let r = Math.floor( Math.random()* 255 );
+            let g = Math.floor( Math.random()* 255 );
+            let b = Math.floor( Math.random()* 255 );
+            return `rgba(${r},${g},${b},.3 ) `;
+        }
+
+        
+        function preload_img(){
+            var img = new Image();
+            img.src = src ;
+            img.addEventListener( 'load' ,);
+        }
+
+        function load_img(){
+            let min = Math.min.apply( null, heightArr );
+            let index = heightArr.indexOf(min);
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+    
+</body>
+</html>

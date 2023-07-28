@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+   <h1 id="show"></h1>
+   <script>
+   
+   let show = document.getElementById('show');
+
+   if(navigator.geolocation){
+       navigator.geolocation.getCurrentPosition(pos =>{
+            console.log(pos)
+
+            show.innerHTML="Latitude: " + pos.coords.latitude +
+            "<br />Longitude: " + pos.coords.longitude;
+
+       },err =>{
+            console.log(err)
+            show.innerHTML = err;
+       })
+   }
+   </script>
+</body>
+</html>

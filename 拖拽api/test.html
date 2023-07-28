@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container{
+        width: 200px;height: 300px;
+        border: solid 1px #000;
+    }
+    img{
+        width: 200px;
+    }
+    </style>
+</head>
+<body>
+    
+
+    <div  id="divs" class="container" ondrop="drop(event)"  ondragover="allowDrop(event)"></div>
+
+    <img  id="imgs" src="../timg.jpeg"  draggable="true" ondragstart="drag(event)">
+
+    <script>
+    
+    function allowDrop(evt){
+        evt.preventDefault()
+    }
+    function drag(evt){
+        console.log(evt.target.id)
+        evt.dataTransfer.setData("text",evt.target.id);
+    }
+
+    function drop(evt){
+        evt.preventDefault();
+        var data = evt.dataTransfer.getData("text");
+        console.log(data)
+        evt.target.appendChild(document.getElementById(data))
+    }
+    </script>
+</body>
+</html>

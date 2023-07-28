@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{margin: 0;padding: 0}
+    </style>
+</head>
+<body>
+    <script>
+        // 设置初设条件
+        let margin_bottom = 10;
+        let margin_left = 5;   
+
+        let col_num = 5;        //设置列数
+        let row_num = 0;
+        let heightArr = new Array(col_num).fill(0);  // 生出初始数组，用以记录每列的长度
+        let Max_num = 10;        //图片的数量
+        let Max_rows = 5;        //设置最大行数
+        let num = 1;
+        let ul;
+
+        init();
+        add_list();
+        add_image( `./bg${num}.jpg` ); 
+
+        function add_list(){
+            for( let i = 0 ;i < col_num; i++ )
+            {
+                let li = document.createElement('li');
+                Object.assign( li.style , {
+                    marginLeft : margin_left + 'px',
+                    width : ( document.documentElement.clientWidth / col_num ) - margin_left + 'px',
+                    float : 'left',
+                    fontSize : '0',
+                });
+                ul.appendChild( li );
+            }
+        }
+
+
+        function add_image( src ){
+            var img = new Image();
+            img.src = src;
+            img.addEventListener( 'load' , let_us_Go )
+        }
+
+        // 添加图片
+        function let_us_Go(){
+            let min = Math.min.apply( null , heightArr );
+            let index = heightArr.indexOf( min );
+            this.style.width = '100%';
+            this.style.marginBottom = margin_bottom + 'px';
+            ul.children[index].appendChild( this );
+            heightArr[index] += this.offsetHeight;
+            num ++;    
+                    
+            if( num >= Max_num )
+            {
+                num = 1;
+                row_num ++;
+            }
+
+            if( row_num > Max_rows )
+            {
+                return;
+            }
+            adjust_width();
+            add_image( `./bg${num}.jpg` );
+
+            window.onresize = function(){
+                adjust_width();
+            }
+        }
+
+
+
+        // 重新调整li的宽度
+        function adjust_width(){
+            for( let i=0; i<col_num; i++ )
+            {
+                ul.children[i].style.width = ( document.documentElement.clientWidth / col_num ) -margin_left + 'px';
+            }
+        }
+
+
+        // 初始化函数，创建ul并设置默认style属性
+        function init(){
+            ul = document.createElement('ul');
+            document.body.appendChild(ul);
+            Object.assign( ul.style , {
+                margin : 0,
+                padding : 0,
+                overflow : 'hidden',
+                width : '100%',
+                listStyle : 'none',
+            });
+        }
+
+
+
+        function randomColor(){
+            let r = Math.floor( Math.random()*(255-50)+50 );
+            let g = Math.floor( Math.random()*(255-50) );
+            let b = Math.floor( Math.random()*(255-50) );
+            // return ( 'rgb( '+r+' , '+g+' , '+b+' ) ' );
+            return ( `rgba( ${r} , ${g} , ${b} , .3 )` );
+        }
+
+
+
+        
+        
+        </script>
+    
+</body>
+</html>

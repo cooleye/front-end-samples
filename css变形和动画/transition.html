@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: red;
+        transition: all 1s cubic-bezier(.64,.06,.32,.88) 0.5s;
+    }
+
+    #box:hover{
+        transform:translateX(200px);
+    }
+
+    #box2{
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        background: url("./imgs/zp.jpg") no-repeat;
+        background-size: 100%;
+        /* background: blue; */
+        transform: rotate(0deg);
+        transition: all 1s cubic-bezier(.64,.06,.32,.88) 0.5s;
+    }
+
+    #box2:hover{
+        transform: rotate(1000deg);
+    }
+    </style>
+</head>
+<body>
+    
+
+    <div id="box">111</div>
+
+
+    <div id="box2"></div>
+</body>
+</html>
