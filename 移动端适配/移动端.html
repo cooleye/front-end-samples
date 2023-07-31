@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      html {
+        font-size: 26.6666666vw;
+      }
+
+      body{
+        background-color: black;
+      }
+
+      /* @media (min-width: 560px) {
+        html {
+          font-size: 54px;
+        }
+      } */
+      h1 {
+        background-color: aquamarine;
+        font-size: 0.24rem;
+      }
+      p {
+        font-size: 0.14rem;
+      }
+
+      img {
+        width: 3.43rem;
+        margin: 0 auto;
+      }
+      .banner {
+        text-align: center;
+      }
+
+      .button-groups {
+        display: flex;
+        margin-left: .16rem;
+      }
+      button {
+         border: none;
+         outline: none;
+         background-color: #fff;
+         height: .32rem;
+         border-radius: .16rem;
+         padding: .08rem;
+         font-size: .14rem;
+         margin-right: .12rem;
+      }
+
+      button img{
+        width: .16rem;
+        height: .16rem;
+        vertical-align: -.02rem;
+        margin-right: .04rem;
+      }
+      .blue {
+        background: rgba(113, 26, 255, 1);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>hello world</h1>
+    <p>hello</p>
+
+    <div class="banner">
+      <img src="./banner.png"  srcset="./banner.png 400w,  ./banner@2x.png  800w" alt="" />
+    </div>
+
+    <div class="button-groups">
+      <button class="blue">
+        <img src="./icon.png" alt="">
+        户外音乐节</button>
+      <button> <img src="./icon1.png" alt="">脱口秀</button>
+      <button> <img src="./icon2.png" alt="">演唱会</button>
+    </div>
+
+    <div class="list"></div>
+  </body>
+</html>
