@@ -17,15 +17,19 @@
         font-size: 26.6666666vw;
       }
 
-      body{
+      body {
         background-color: black;
       }
 
-      /* @media (min-width: 560px) {
+      /* 当屏幕宽度超过414,固定rem = 100px,页面居中显示 */
+      @media (min-width: 414px) {
         html {
-          font-size: 54px;
+          font-size: 100px;
         }
-      } */
+        body {
+          background-color: #000;
+        }
+      }
       h1 {
         background-color: aquamarine;
         font-size: 0.24rem;
@@ -44,24 +48,24 @@
 
       .button-groups {
         display: flex;
-        margin-left: .16rem;
+        margin-left: 0.16rem;
       }
       button {
-         border: none;
-         outline: none;
-         background-color: #fff;
-         height: .32rem;
-         border-radius: .16rem;
-         padding: .08rem;
-         font-size: .14rem;
-         margin-right: .12rem;
+        border: none;
+        outline: none;
+        background-color: #fff;
+        height: 0.32rem;
+        border-radius: 0.16rem;
+        padding: 0.08rem;
+        font-size: 0.14rem;
+        margin-right: 0.12rem;
       }
 
-      button img{
-        width: .16rem;
-        height: .16rem;
-        vertical-align: -.02rem;
-        margin-right: .04rem;
+      button img {
+        width: 0.16rem;
+        height: 0.16rem;
+        vertical-align: -0.02rem;
+        margin-right: 0.04rem;
       }
       .blue {
         background: rgba(113, 26, 255, 1);
@@ -74,15 +78,20 @@
     <p>hello</p>
 
     <div class="banner">
-      <img src="./banner.png"  srcset="./banner.png 400w,  ./banner@2x.png  800w" alt="" />
+      <img
+        src="./banner.png"
+        srcset="./banner.png 400w, ./banner@2x.png 800w"
+        alt=""
+      />
     </div>
 
     <div class="button-groups">
       <button class="blue">
-        <img src="./icon.png" alt="">
-        户外音乐节</button>
-      <button> <img src="./icon1.png" alt="">脱口秀</button>
-      <button> <img src="./icon2.png" alt="">演唱会</button>
+        <img src="./icon.png" alt="" />
+        户外音乐节
+      </button>
+      <button><img src="./icon1.png" alt="" />脱口秀</button>
+      <button><img src="./icon2.png" alt="" />演唱会</button>
     </div>
 
     <div class="list"></div>
