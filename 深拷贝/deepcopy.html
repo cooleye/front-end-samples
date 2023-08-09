@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+   
+      function deepCopy(obj) {
+        // 如果obj 不是对象或者是null,则直接返回原值
+        if (typeof obj !== "object" || obj === null) return obj;
+
+        // 接下来，分两个情况分析
+        let temp;
+        // 1、如果是数组，则for遍历，然后判断类型，如果元素是数组，则便利
+        // 2、如果是对象，则 for in 遍历，
+        if (Array.isArray(obj)) {
+          temp = [];
+        } else {
+          temp = {};
+        }
+
+        for (let key in obj) {
+          if (typeof obj[key] === "object") {
+            temp[key] = deepCopy(obj[key]);
+          } else {
+            temp[key] = obj[key];
+          }
+        }
+
+        return temp;
+      }
+
+      let obj = { a: 1, b: [1, 2, { c: 3, d: function () {} }] };
+
+      let obj2 = deepCopy(obj);
+
+      let nobj = deepCopy(obj);
+
+      console.log(obj);
+      console.log(nobj);
+    </script>
+  </body>
+</html>

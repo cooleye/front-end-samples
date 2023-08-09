@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <link rel="stylesheet" href="./chatgpt.css" />
+    <link rel="stylesheet" href="./loading.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>国内版GPT</h1>
+    </header>
+    <ul class="loading">
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+
+    <div class="box">
+      <!-- <div class="me">
+        <div class="m-main">
+          <p class="msg-date"></p>
+          <span class="break-word">
+            ${item.content}
+          </span>  
+        </div>
+        <div class="m-img">
+        <img src="./a2.jpeg" width="100%" height="100%" alt="" />
+        </div>
+    </div> -->
+    </div>
+    <div class="shuru">
+      <input type="text" placeholder="向我提问吧" id="srk" />
+      <button>发送</button>
+    </div>
+    <script>
+      // 从localstorage中读取历史记录
+      let historyMessges = [];
+      if (localStorage.gptmsg) {
+        historyMessges = JSON.parse(localStorage.gptmsg);
+      }
+
+      if (historyMessges.length > 0) {
+        historyMessges.forEach((item) => {
+          if (item.role === "user") {
+            let msgdiv = `<div class="me">
+                            <div class="m-main">
+                              <p class="msg-date">${dateFmt(item.date)}</p>
+                              <span class="break-word">
+                                ${item.content}
+                              </span>  
+                            </div>
+                            <div class="m-img">
+                            <img src="./a2.jpeg" width="100%" height="100%" alt="" />
+                            </div>
+                        </div>`;
+
+            $(".box").append(msgdiv);
+          } else if (item.role === "gpt") {
+            let msg = ` <div class="he">
+                      <div class="h-img">
+                        <img src="./a1.jpeg" width="100%" height="100%" alt="" />
+                      </div>
+                      <div class="h-main">
+                        <p class="msg-date">${dateFmt(item.date)}</p>
+                        <span class="break-word">
+                          ${item.content}
+                        </span>
+                      </div>
+                    </div>`;
+            $(".box").append(msg);
+          }
+        });
+        setTimeout(function () {
+          srollPage();
+        }, 500);
+      }
+
+      // 发送消息
+      $("button").on("click", function () {
+        let text = $("#srk").val();
+        let msgdiv = `<div class="me">
+                            <div class="m-main">
+                              <p class="msg-date">${dateFmt(Date.now())}</p>
+                              <span class="break-word">
+                                ${text}
+                              </span>  
+                            </div>
+                            <div class="m-img">
+                            <img src="./a2.jpeg" width="100%" height="100%" alt="" />
+                            </div>
+                        </div>`;
+
+        $(".box").append(msgdiv);
+        // 清空输入框
+        $("#srk").val("");
+
+        // 把消息存入localstorage
+        saveToStorage(text, "user");
+
+        // loading
+        $(".loading").show();
+
+        // 调用chatgpt接口
+        callGPT(text);
+
+        // 滚动页面
+        srollPage();
+      });
+
+      // 把消息存入localstorage
+      function saveToStorage(text, role) {
+        let msg = {
+          date: Date.now(),
+          content: text,
+          role: role,
+        };
+        historyMessges.push(msg);
+
+        localStorage.setItem("gptmsg", JSON.stringify(historyMessges));
+      }
+
+      // 调用chatgpt接口
+      function callGPT(msg) {
+        // 接口地址
+        let url =
+          "https://1870466810991564.ap-south-1.fc.aliyuncs.com/2016-08-15/proxy/chat-server-india.LATEST/chat/";
+
+        let data = {
+          spoken: msg,
+        };
+
+        $.post(url, JSON.stringify(data)).done((res) => {
+          // console.log(res);
+          gptReply(JSON.parse(res));
+        });
+      }
+
+      // 渲染回复的消息
+      function gptReply(data) {
+        if (data.code == 20000) {
+          // 渲染回复消息的页面
+          let msg = ` <div class="he">
+                      <div class="h-img">
+                        <img src="./a1.jpeg" width="100%" height="100%" alt="" />
+                      </div>
+                      <div class="h-main">
+                        <p class="msg-date">${dateFmt(Date.now())}</p>
+                        <span class="break-word">
+                          ${data.response}
+                        </span>
+                      </div>
+                    </div>`;
+          $(".box").append(msg);
+
+          $(".loading").hide();
+
+          // 把消息存入localstorage
+          saveToStorage(data.response, "gpt");
+
+          srollPage();
+        }
+      }
+      //   发送消息后，页面自动滚动
+      function srollPage() {
+        // 滚动页面的长度   窗口的高度
+
+        let pageHeight = $(".box").height();
+        let windHeight = window.innerHeight;
+        window.scrollTo({
+          top: pageHeight - windHeight + 100,
+          behavior: "smooth",
+        });
+      }
+
+      function dateFmt(timestamp) {
+        let date = new Date(timestamp);
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let min = date.getMinutes();
+        let sec = date.getSeconds();
+        console.log(timestamp, year, month, day, hour, min, sec);
+        return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
+      }
+    </script>
+  </body>
+</html>

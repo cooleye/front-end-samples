@@ -1,104 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        * {
-            padding: 0;
-            margin: 0
-        }
+      * {
+        padding: 0;
+        margin: 0;
+      }
 
-        ul {
-            list-style: none
-        }
+      ul {
+        list-style: none;
+      }
 
-        ul li {
-            height: 50px;
-            background-color: aquamarine;
-            margin-top: 20px;
-        }
+      ul li {
+        height: 50px;
+        background-color: aquamarine;
+        margin-top: 20px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
     </ul>
 
     <script>
-        let index = 0;
-        window.onscroll = throttle(500, function () {
-            console.log(index)
-            index++;
-        })
+      //   window.onscroll = function () {
+      //     console.log(1);
+      //   };
 
-        function throttle(interval, fn) {
-            let start = new Date()
-            let end = null;
+      let index = 0;
+      window.onscroll = throttle(200, function () {
+        console.log(index);
+        index++;
+      });
 
-            return function () {
-                end = new Date()
-            
-                if (end - start >= interval) {
-                    fn()
-                    start = end;
-                }
-            }
-        }
+
+    //   |----|----|----|
+      function throttle(interval, fn) {
+        let start = new Date();
+        let end = null;
+
+        return function () {
+          end = new Date();
+
+          if (end - start >= interval) {
+            fn();
+            start = end;
+          }
+        };
+      }
     </script>
-</body>
-
+  </body>
 </html>
