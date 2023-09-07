@@ -21,20 +21,31 @@
         background-color: black;
       }
 
+      ul {
+        list-style: none;
+      }
+      .text-white{
+        color: #fff;
+      }
+      .bg-blue{
+        background-color:  rgba(113, 26, 255, 1);
+      }
       /* 当屏幕宽度超过414,固定rem = 100px,页面居中显示 */
       @media (min-width: 414px) {
         html {
           font-size: 100px;
         }
-        body {
-          background-color: #000;
-        }
+      }
+
+      .center {
+        margin: 0 auto;
       }
       h1 {
-        background-color: aquamarine;
         font-size: 0.24rem;
+        width: 3.75rem;
       }
       p {
+        width: 3.75rem;
         font-size: 0.14rem;
       }
 
@@ -43,12 +54,13 @@
         margin: 0 auto;
       }
       .banner {
+        width: 3.75rem;
         text-align: center;
       }
 
       .button-groups {
+        width: 3.75rem;
         display: flex;
-        margin-left: 0.16rem;
       }
       button {
         border: none;
@@ -67,17 +79,22 @@
         vertical-align: -0.02rem;
         margin-right: 0.04rem;
       }
-      .blue {
-        background: rgba(113, 26, 255, 1);
-        color: #fff;
+
+      .list{
+        width: 3.75rem;
+      }
+      ul li{
+        height: 100px;
+        background-color: #fff;
+        margin-top: 12px;
       }
     </style>
   </head>
   <body>
-    <h1>hello world</h1>
-    <p>hello</p>
+    <h1 class="center bg-blue text-white">hello world</h1>
+    <p class="center text-white">hello</p>
 
-    <div class="banner">
+    <div class="banner center">
       <img
         src="./banner.png"
         srcset="./banner.png 400w, ./banner@2x.png 800w"
@@ -85,7 +102,7 @@
       />
     </div>
 
-    <div class="button-groups">
+    <div class="button-groups center">
       <button class="blue">
         <img src="./icon.png" alt="" />
         户外音乐节
@@ -94,6 +111,14 @@
       <button><img src="./icon2.png" alt="" />演唱会</button>
     </div>
 
-    <div class="list"></div>
+    <div class="list center">
+      <ul>
+        <li class="bg-blue">1</li>
+        <li class="bg-blue">2</li>
+        <li class="bg-blue">3</li>
+        <li class="bg-blue">4</li>
+        <li class="bg-blue">5</li>
+      </ul>
+    </div>
   </body>
 </html>
